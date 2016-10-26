@@ -1,0 +1,13 @@
+---
+- name: Install Nginx,sqlite,supervisord and gunicorn
+  hosts: all
+  remote_user: root
+  # remote_user: user
+  become: yes
+  become_method: sudo
+
+  roles:
+    - palkan.nginx
+    - { role: mrwilson.sqlite, sqlite_dir: /var/sqlite, '{{sqlite_dbs: [ foo, bar ]}}' }
+    - debops.gunicorn
+    - f500.supervisord
